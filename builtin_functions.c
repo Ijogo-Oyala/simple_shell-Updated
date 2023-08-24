@@ -71,3 +71,103 @@ void _env_(char **args __attribute__ ((unused)))
 	}
 }
 
+/**
+ * _set_env - Adds or modifies an environment variable.
+ * @args: Array of words containing command and arguments.
+ */
+void _set_env(char **args)
+{
+	int env_index, name_index, value_index;
+	/* Check if the required arguments are provided */
+	if (!args[1] || !args[2])
+	{
+		perror(_get_env("_"));
+		return;
+	}
+	/* Loop through the existing environment variables */
+	for (env_index = 0; environ[env_index]; env_index++)
+	{
+		name_index = 0;
+		/* Compare the names of the environment variable */
+		if (args[1][name_index] == environ[env_index][name_index])
+		{
+			while (args[1][name_index])
+			{
+				if (args[1][name_index] != environ[env_index][name_index])
+					break;
+
+				name_index++;
+			}
+
+			/* If the names match, update the environment variable */
+			if (args[1][name_index] == '\0')
+			{
+				value_index = 0;
+				while (args[2][value_index])
+				{
+					environ[env_index][name_index + 1 + value_index] = args[2][value_index];
+					value_index++;
+				}
+				environ[env_index][name_index + 1 + value_index] = '\0';
+				return;
+			}
+		}
+	}
+
+	/* If the environment variable doesn't exist, create a new one */
+	if (!environ[env_index])
+	{
+		environ[env_index] = str_concat(args[1], "=", args[2]);
+		environ[env_index + 1] = '\0';
+	}
+}
+
+/**
+ * _unset_env - Removes an environment variable.
+ * @args: Array of entered words.
+ */
+void _unset_env(char **args)
+{
+	int env_index, name_index;
+
+	/* Check if the required argument is provided */
+	if (!args[1])
+	{
+		perror(_get_env("_"));
+		return;
+	}
+
+	/* Loop through the existing environment variables */
+	for (env_index = 0; environ[env_index]; env_index++)
+	{
+		name_index = 0;
+		/* Compare the names of the environment variable */
+		if (args[1][name_index] == environ[env_index][name_index])
+		{
+			while (args[1][name_index])
+			{
+				if (args[1][name_index] != environ[env_index][name_index])
+					break;
+
+				name_index++;
+			}
+
+			/* If the names match, remove the environment variable */
+			if (args[1][name_index] == '\0')
+			{
+				free(environ[env_index]);
+				environ[env_index] = environ[env_index + 1];
+
+				/* Shift the remaining environment variables */
+				while (environ[env_index])
+				{
+					environ[env_index] = environ[env_index + 1];
+					env_index++;
+				}
+				return;
+
+			}
+		}
+	}
+}
+
