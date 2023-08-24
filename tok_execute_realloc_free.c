@@ -88,7 +88,7 @@ char **split_string(char *str, const char *delim)
 	{
 		tokens = strtok(NULL, delim);
 		/* Resize the word array and add the token */
-		w_arr = _realloc_(w_arr, (sizeof(char *) * (w_cnt - 1)), (sizeof(char *) * w_cnt));
+		w_arr = _realloc_(w_arr,(sizeof(char *)*(w_cnt - 1)),(sizeof(char *)*w_cnt));
 		w_arr[index] = str_dup(tokens);
 
 		index++;
