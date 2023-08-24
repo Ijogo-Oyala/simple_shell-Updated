@@ -55,12 +55,12 @@ int main(void)
 	size_t buffer_size = 0;
 	path_dir *path_list = '\0';
 	void (*command_function)(char **);
-	
+
 	signal(SIGINT, ctrl_c_handler); /* Set signal handler for Ctrl+C */
 	while (input_length != EOF) /* Main shell loop */
 	{
 		_isatty_(); /* Check if running in terminal & print prompt */
-		input_length = getline(&input_buffer, &buffer_size, stdin); /* Get user input  */
+		input_length = getline(&input_buffer, &buffer_size, stdin); /* Get input  */
 		handle_eof(input_length, input_buffer);
 		arguments = split_string(input_buffer, " \n"); /* Split input to ind args */
 		if (!arguments || !arguments[0])
@@ -69,8 +69,8 @@ int main(void)
 		{
 			path_value = _get_env("PATH"); /* Get value of PATH env var */
 			path_list = link_path_dir(path_value); /* Create linked list of path dir */
-			executable_path = _which_(arguments[0], path_list); /* Find exe path for command */
-			command_function = _find_builtin(arguments); /* Find if com is a built-in func */
+			executable_path = _which_(arguments[0], path_list); /* Find exe path com */
+			command_function = _find_builtin(arguments); /* Find com is builtin func */
 			if (command_function)
 			{
 				free(input_buffer); /* If built-in command, execute */
