@@ -19,7 +19,7 @@ void *_realloc_(void *prev_ptr, unsigned int old_size, unsigned int new_size)
 	/* If new size is the same as old size, return previous pointer */
 	if (new_size == old_size)
 		return (prev_ptr);
-	/* If new size is 0 and previous pointer is not NULL, free memory and return NULL */
+	/* If new size 0 & prev pointer isnt NULL, free memory and return NULL */
 	if (new_size == 0 && prev_ptr != NULL)
 	{
 		free(prev_ptr);
@@ -58,8 +58,8 @@ void *_realloc_(void *prev_ptr, unsigned int old_size, unsigned int new_size)
  */
 char **split_string(char *str, const char *delim)
 {
-	int index, word_count;
-	char **word_array;
+	int index, w_cnt;
+	char **w_arr;
 	char *tokens, *str_copy;
 
 	/* Create a copy of the input string to avoid modifying the original */
@@ -81,11 +81,11 @@ char **split_string(char *str, const char *delim)
 	tokens = strtok(str_copy, delim);
 
 	/* Initialize the word array with the first token */
-	word_array = malloc(sizeof(char *) * 2);
-	word_array[0] = str_dup(tokens);
+	w_arr = malloc(sizeof(char *) * 2);
+	w_arr[0] = str_dup(tokens);
 
 	index = 1;
-	word_count = 3;
+	w_cnt = 3;
 
 	/* Loop through the remaining tokens and add them to the word array */
 	while (tokens)
@@ -93,17 +93,17 @@ char **split_string(char *str, const char *delim)
 		tokens = strtok(NULL, delim);
 
 		/* Resize the word array and add the token */
-		word_array = _realloc_(word_array, (sizeof(char *) * (word_count - 1)), (sizeof(char *) * word_count));
-		word_array[index] = str_dup(tokens);
+		w_arr = _realloc_(w_arr, (sizeof(char *) * (w_cnt - 1)), (sizeof(char *) * w_cnt));
+		w_arr[index] = str_dup(tokens);
 
 		index++;
-		word_count++;
+		w_cnt++;
 	}
 
 	/* Free the copied string */
 	free(str_copy);
 
-	return (word_array);
+	return (w_arr);
 }
 
 /**
