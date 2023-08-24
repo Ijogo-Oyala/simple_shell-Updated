@@ -38,8 +38,8 @@ extern char **environ;
  */
 typedef struct path_directory
 {
-    char *dir;
-    struct path_directory *next;
+	char *dir;
+	struct path_directory *next;
 } path_dir;
 
 /*--- pathfinder functions ---*/
@@ -74,7 +74,8 @@ void(*_find_builtin(char **com))(char **);
 /*--- memory leak handling ---*/
 void free_arv(char **arv);
 
-void free_path_list(path_dir *head); /*pathfinder.c */
+/*pathfinder.c */
+void free_path_list(path_dir *head);
 
 
 #endif /* SIMPLE_SHELL_H */
