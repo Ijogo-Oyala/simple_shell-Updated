@@ -84,8 +84,7 @@ void _set_env(char **args)
 		perror(_get_env("_"));
 		return;
 	}
-	/* Loop through the existing environment variables */
-	for (env_index = 0; environ[env_index]; env_index++)
+	for (env_index = 0; environ[env_index]; env_index++) /* Loop existing env var */
 	{
 		name_index = 0;
 		/* Compare the names of the environment variable */
@@ -98,7 +97,6 @@ void _set_env(char **args)
 
 				name_index++;
 			}
-
 			/* If the names match, update the environment variable */
 			if (args[1][name_index] == '\0')
 			{
@@ -113,9 +111,7 @@ void _set_env(char **args)
 			}
 		}
 	}
-
-	/* If the environment variable doesn't exist, create a new one */
-	if (!environ[env_index])
+	if (!environ[env_index]) /* If the env var doesn't exist, create new */
 	{
 		environ[env_index] = str_concat(args[1], "=", args[2]);
 		environ[env_index + 1] = '\0';
@@ -129,14 +125,12 @@ void _set_env(char **args)
 void _unset_env(char **args)
 {
 	int env_index, name_index;
-
 	/* Check if the required argument is provided */
 	if (!args[1])
 	{
 		perror(_get_env("_"));
 		return;
 	}
-
 	/* Loop through the existing environment variables */
 	for (env_index = 0; environ[env_index]; env_index++)
 	{
@@ -151,7 +145,6 @@ void _unset_env(char **args)
 
 				name_index++;
 			}
-
 			/* If the names match, remove the environment variable */
 			if (args[1][name_index] == '\0')
 			{
@@ -170,4 +163,3 @@ void _unset_env(char **args)
 		}
 	}
 }
-
