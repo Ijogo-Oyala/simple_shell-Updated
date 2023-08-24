@@ -50,61 +50,43 @@ void _isatty_(void)
  */
 int main(void)
 {
-	/* Initialize variables */
 	ssize_t input_length = 0;
 	char *input_buffer = NULL, *path_value, *executable_path, **arguments;
 	size_t buffer_size = 0;
 	path_dir *path_list = '\0';
-	/* Pointer to a function that takes an array of strings (char**) as an argument.
- 	* This pointer is used to point to built-in functions or external commands
-  	* that the shell may execute based on user input.
-  	*/
 	void (*command_function)(char **);
-
-	/* Set up signal handler for Ctrl+C */
-	signal(SIGINT, ctrl_c_handler);
-	/* Main shell loop */
-	while (input_length != EOF)
+	
+	signal(SIGINT, ctrl_c_handler); /* Set signal handler for Ctrl+C */
+	while (input_length != EOF) /* Main shell loop */
 	{
-		/* Check if running in a terminal and print the prompt */
-		_isatty_();
-		/* Get input from the user */
-		input_length = getline(&input_buffer, &buffer_size, stdin);
-		/* Handle End of File (EOF) */
+		_isatty_(); /* Check if running in terminal & print prompt */
+		input_length = getline(&input_buffer, &buffer_size, stdin); /* Get user input  */
 		handle_eof(input_length, input_buffer);
-		/* Split the input into individual arguments */
-		arguments = split_string(input_buffer, " \n");
+		arguments = split_string(input_buffer, " \n"); /* Split input to ind args */
 		if (!arguments || !arguments[0])
 			_execute(arguments);
 		else
 		{
-			/* Get the value of the PATH environment variable */
-			path_value = _get_env("PATH");
-			/* Create a linked list of path directories */
-			path_list = link_path_dir(path_value);
-			/* Find the executable path for the given command */
-			executable_path = _which_(arguments[0], path_list);
-			/* Find if the command is a built-in function */
-			command_function = _find_builtin(arguments);
+			path_value = _get_env("PATH"); /* Get value of PATH env var */
+			path_list = link_path_dir(path_value); /* Create linked list of path dir */
+			executable_path = _which_(arguments[0], path_list); /* Find exe path for command */
+			command_function = _find_builtin(arguments); /* Find if com is a built-in func */
 			if (command_function)
 			{
-				/* If it's a built-in command, execute it */
-				free(input_buffer);
+				free(input_buffer); /* If built-in command, execute */
 				command_function(arguments);
 			}
 			else if (!executable_path)
 				_execute(arguments); /* If the command is not found, execute it */
 			else if (executable_path)
 			{
-				/* If the command is found, replace the argument and execute */
-				free(arguments[0]);
+				free(arguments[0]); /* If comm found, replace arg & execute */
 				arguments[0] = executable_path;
 				_execute(arguments);
 			}
 		}
 	}
-	/* Clean up and free memory */
-	free_path_list(path_list);
+	free_path_list(path_list); /* Clean up and free memory */
 	free_arv(arguments);
 	free(input_buffer);
 	return (0);
