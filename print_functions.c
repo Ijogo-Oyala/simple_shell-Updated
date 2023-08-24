@@ -14,13 +14,14 @@ int _putchar_(char ch)
 
 /**
  * _puts_ - Prints a string to stdout
- * @str: The string to print
+ * @string: The string to print
  *
  * Return: Always 0 (Success)
  */
 void _puts_(const char *string)
 {
 	int counter;
+
 	counter = 0;
 
 	while (string[counter])
