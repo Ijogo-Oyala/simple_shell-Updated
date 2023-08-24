@@ -25,7 +25,7 @@ void(*_find_builtin(char **com))(char **com)
 		/* Compare the first chars of the input command and the built-in command */
 		if (C[builtin_index].com_name[char_index] == com[0][char_index])
 		{
-        		/* Compare the full strings character by character */
+			/* Compare the full strings character by character */
 			for (char_index = 0; com[0][char_index]; char_index++)
 			{
 				if (C[builtin_index].com_name[char_index] != com[0][char_index])
