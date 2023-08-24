@@ -106,3 +106,49 @@ char **split_string(char *str, const char *delim)
 	return (word_array);
 }
 
+/**
+ * _execute - Executes a command.
+ * @args: Array of arguments.
+ */
+void _execute(char **args)
+{
+	int child_pid, status;
+
+	/* Check if arguments or command are missing */
+	if (!args || !args[0])
+		return;
+
+	/* Create a child process using fork */
+	child_pid = fork();
+	if (child_pid == -1)
+		perror(_get_env("_"));
+
+	/* Child process code */
+	if (child_pid == 0)
+	{
+		/* Execute the command with provided arguments */
+		execve(args[0], args, environ);
+			perror(args[0]); /* Print an error message if execution fails */
+		exit(EXIT_FAILURE);
+	}
+	/* Parent process waits for the child to complete */
+	wait(&status);
+}
+
+
+/**
+ * free_arv - Frees the array of pointers.
+ * @arv: Array of pointers.
+ */
+void free_arv(char **arv)
+{
+	int index;
+
+	/* Iterate through the array and free each element */
+	for (index = 0; arv[index]; index++)
+		free(arv[index]);
+
+	/* Free the array itself */
+	free(arv);
+}
+
