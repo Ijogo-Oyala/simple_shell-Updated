@@ -1,0 +1,74 @@
+# NAME
+    hsh - A simple Unix shell implementation
+
+# SYNOPSIS
+    **hsh**
+
+# DESCRIPTION
+    The `hsh` shell is a simple implementation of a Unix-like shell that can execute commands,
+    manage environment variables, and perform basic shell operations.
+
+# OPTIONS
+    No command-line options are currently supported.
+
+# USAGE
+    The `hsh` shell can be used interactively or non-interactively.
+
+## Interactive Mode
+    Run the shell executable and enter commands at the prompt.
+
+    ```shell
+    $ ./hsh
+    #GshellX$ /bin/ls
+    hsh main.c shell.c
+    #GshellX$ exit
+    ```
+
+## Non-Interactive Mode
+    Use input redirection to provide commands to the shell.
+
+    ```shell
+    $ echo "/bin/ls" | ./hsh
+    hsh main.c shell.c test_ls_2
+    ```
+
+# BUILT-IN COMMANDS
+    The following built-in commands are supported:
+    - `exit`: Exit the shell
+    - `env`: Print environment variables
+    - `setenv VAR VALUE`: Set an environment variable
+    - `unsetenv VAR`: Unset an environment variable
+
+# ENVIRONMENT
+    The `hsh` shell uses the following environment variables:
+    - `PATH`: Colon-separated list of directories for executable searching
+
+# FILES
+    - `builtin_functions.c`: Implementation of built-in commands
+    - `builtin_finder.c`: Function to find built-in commands
+    - `main_shell.c`: Entry point and main loop of the shell
+    - `environment_functions.c`: Environment-related functions
+    - `print_functions.c`: Functions for character and string output
+    - `simple_shell.h`: Header file with function prototypes and structures
+    - `strings_functions.c`: String manipulation functions
+    - `tok_execute_realloc_free.c`: Tokenization, execution, memory functions
+
+# RETURN VALUES
+    The `hsh` shell returns 0 on successful execution. Non-zero values may indicate errors.
+
+# SEE ALSO
+    - `sh(1)`: The Bourne shell
+    - `bash(1)`: The GNU Bourne-Again shell
+
+# BUGS
+    There are no known bugs in this version of the `hsh` shell.
+
+# COPYRIGHT
+    This program is licensed under the GNU General Public License version 3.
+
+# REPORTING BUGS
+    Report bugs to: SEE AUTHORS.
+
+# WEBSITE
+    Project repository: (https://github.com/Ijogo-Oyala/simple_shell)
+
