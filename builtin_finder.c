@@ -1,7 +1,7 @@
 #include "simple_shell.h"
 
 /**
- * find_builtin - Finds and returns a built-in function pointer.
+ * _find_builtin - Finds and returns a built-in function pointer.
  * @com: Command to check if it's a built-in command.
  * Return: Pointer to a function that takes arguments and returns void.
  */
@@ -22,7 +22,7 @@ void(*_find_builtin(char **com))(char **com)
 	for (builtin_index = 0; C[builtin_index].com_name; builtin_index++)
 	{
 		char_index = 0;
-		/* Compare the first characters of the input command and the built-in command */
+		/* Compare the first chars of the input command and the built-in command */
 		if (C[builtin_index].com_name[char_index] == com[0][char_index])
 		{
         		/* Compare the full strings character by character */
