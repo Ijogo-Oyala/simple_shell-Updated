@@ -84,7 +84,8 @@ void _set_env(char **args)
 		perror(_get_env("_"));
 		return;
 	}
-	for (env_index = 0; environ[env_index]; env_index++) /* Loop existing env var */
+	/* Loop existing env var */
+	for (env_index = 0; environ[env_index]; env_index++)
 	{
 		name_index = 0;
 		/* Compare the names of the environment variable */
