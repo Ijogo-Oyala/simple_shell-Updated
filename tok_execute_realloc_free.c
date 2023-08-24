@@ -61,7 +61,6 @@ char **split_string(char *str, const char *delim)
 	int index, w_cnt;
 	char **w_arr;
 	char *tokens, *str_copy;
-
 	/* Create a copy of the input string to avoid modifying the original */
 	str_copy = malloc(str_len(str) + 1);
 	if (str_copy == NULL)
@@ -76,22 +75,18 @@ char **split_string(char *str, const char *delim)
 		index++;
 	}
 	str_copy[index] = '\0';
-
 	/* Get the first token */
 	tokens = strtok(str_copy, delim);
-
 	/* Initialize the word array with the first token */
 	w_arr = malloc(sizeof(char *) * 2);
 	w_arr[0] = str_dup(tokens);
 
 	index = 1;
 	w_cnt = 3;
-
 	/* Loop through the remaining tokens and add them to the word array */
 	while (tokens)
 	{
 		tokens = strtok(NULL, delim);
-
 		/* Resize the word array and add the token */
 		w_arr = _realloc_(w_arr, (sizeof(char *) * (w_cnt - 1)), (sizeof(char *) * w_cnt));
 		w_arr[index] = str_dup(tokens);
@@ -99,10 +94,7 @@ char **split_string(char *str, const char *delim)
 		index++;
 		w_cnt++;
 	}
-
-	/* Free the copied string */
-	free(str_copy);
-
+	free(str_copy); /* Free the copied string */
 	return (w_arr);
 }
 
