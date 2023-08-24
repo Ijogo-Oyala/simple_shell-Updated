@@ -6,17 +6,17 @@
  */
 void _exit_(char **args)
 {
-	int index, return_status;
+	int index, ret_status;
 
 	if (args[1])
 	{
-		return_status = _atoi_(args[1]);
+		ret_status = _atoi_(args[1]);
 		/* Ensure return status is not negative */
-		if (return_status <= -1)
-			return_status = 2;
+		if (ret_status <= -1)
+			ret_status = 2;
 		/* Free the array of arguments and exit with specified status */
 		free_arv(args);
-		exit(return_status);
+		exit(ret_status);
 	}
 
 	/* Free memory and exit with status 0 */
