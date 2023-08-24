@@ -86,3 +86,73 @@ path_dir *add_path_node_end(path_dir **head, char *dir)
 
 }
 
+/**
+ * link_path_dir - Creates a linked list for path directories.
+ * @path_string: String containing the PATH value.
+ * Return: Pointer to the created linked list.
+ */
+path_dir *link_path_dir(char *path_string)
+{
+	path_dir *head = '\0';
+	char *tokens;
+	char *copied_path = str_dup(path_string); /* Make a copy of the path string */
+
+	tokens = strtok(copied_path, ":"); /* Tokenize the copied path string */
+	while (tokens)
+	{
+		/* Add each directory to the linked list */
+		head = add_path_node_end(&head, tokens);
+		tokens = strtok(NULL, ":");
+	}
+	
+	/* Free the copied path string after use */
+	free(copied_path);
+
+	return (head);
+}
+/**
+ * _which_ - Finds the pathname of an executable file.
+ * @filename: Name of the file or command typed.
+ * @path_list: Head of the linked list of path directories.
+ * Return: Pathname of the filename or NULL if no match.
+ */
+char *_which_(char *filename, path_dir *path_list)
+{
+	struct stat file_stat;
+	char *full_path;
+
+	path_dir *current_dir = path_list;
+
+	while (current_dir)
+	{
+		/* Concatenate directory, "/", and filename */
+		full_path = str_concat(current_dir->dir, "/", filename);
+
+		/* Check if the file exists */
+		if (stat(full_path, &file_stat) == 0)
+			return (full_path); /* Return the full path if the file exists */
+
+		free(full_path); /* Free memory allocated for full path */
+		current_dir = current_dir->next; /* Move to the next directory */
+	}
+
+	return (NULL); /* Return NULL if the file was not found */
+}
+
+/**
+ * free_path_list - Frees a linked list of path directories.
+ * @head: Pointer to the head of the linked list.
+ */
+void free_path_list(path_dir *head)
+{
+	path_dir *temp;
+
+	while (head)
+	{
+		temp = head->next; /* Store the next node in a temporary variable */
+		free(head->dir); /* Free the memory allocated for the directory path */
+		free(head); /* Free the memory allocated for the node itself */
+		head = temp; /* Move to the next node */
+	}
+}
+
