@@ -31,7 +31,7 @@ char *_get_env(const char *variable_name)
 				char_index++;
 			}
 
-			/* If the loop reached the end of the variable name, the variable is found */
+			/* If loop reached the end of the variable name, the variable is found */
 			if (variable_name[char_index] == '\0')
 			{
 				/* Get the value of the variable */
@@ -104,7 +104,6 @@ path_dir *link_path_dir(char *path_string)
 		head = add_path_node_end(&head, tokens);
 		tokens = strtok(NULL, ":");
 	}
-	
 	/* Free the copied path string after use */
 	free(copied_path);
 
