@@ -57,3 +57,91 @@ Submission:
 Prepare your project for submission by creating an AUTHORS file and the required repository structure.
 Double-check that you've followed all the specified requirements and guidelines.
 Remember that creating a shell is a substantial project that involves working with system calls, managing processes, handling I/O, and more. Take your time to understand each concept and gradually build up your shell's functionality. If you encounter specific issues or questions during the process, feel free to ask for help or clarification. Good luck with your project!
+
+Simple Shell Project
+This is a simple shell project implemented in the C programming language. The shell is capable of executing basic commands, handling built-in functions, and managing environment variables.
+
+Files and Descriptions
+File Name	Description
+builtin_functions.c	Contains implementations of various built-in functions.
+builtin_finder.c	Implements the function _find_builtin to search for built-in functions.
+main_shell.c	Entry point for the shell program, handling user input, command execution, and environment variables.
+environment_functions.c	Implements functions related to environment variables and path handling.
+print_functions.c	Implements functions for character and string output.
+simple_shell.h	Header file defining structures, function prototypes, and includes.
+strings_functions.c	Provides string manipulation functions such as length calculation and concatenation.
+tok_execute_realloc_free.c	Contains utility functions for tokenization, execution, memory reallocation, and freeing memory.
+Usage
+Compile the project using the provided compilation command:
+
+gcc -Wall -Werror -Wextra -pedantic -std=gnu89 *.c -o hsh
+Run the shell using the compiled executable:
+
+./hsh
+The shell supports interactive and non-interactive modes and provides basic command execution capabilities.
+
+List of allowed functions and system calls
+access (man 2 access)
+
+chdir (man 2 chdir)
+
+close (man 2 close)
+
+closedir (man 3 closedir)
+
+execve (man 2 execve)
+
+exit (man 3 exit)
+
+_exit (man 2 _exit)
+
+fflush (man 3 fflush)
+
+fork (man 2 fork)
+
+free (man 3 free)
+
+getcwd (man 3 getcwd)
+
+getline (man 3 getline)
+
+getpid (man 2 getpid)
+
+isatty (man 3 isatty)
+
+kill (man 2 kill)
+
+malloc (man 3 malloc)
+
+open (man 2 open)
+
+opendir (man 3 opendir)
+
+perror (man 3 perror)
+
+read (man 2 read)
+
+readdir (man 3 readdir)
+
+signal (man 2 signal)
+
+stat (__xstat) (man 2 stat)
+
+lstat (__lxstat) (man 2 lstat)
+
+fstat (__fxstat) (man 2 fstat)
+
+strtok (man 3 strtok)
+
+wait (man 2 wait)
+
+waitpid (man 2 waitpid)
+
+wait3 (man 2 wait3)
+
+wait4 (man 2 wait4)
+
+write (man 2 write)
+
+GOOD LUCK
+
