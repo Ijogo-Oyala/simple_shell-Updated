@@ -105,7 +105,7 @@ path_dir *link_path_dir(char *path_string)
 		tokens = strtok(NULL, ":");
 	}
 	/* Free the copied path string after use */
-	free(copied_path);
+	/* free(copied_path); */
 
 	return (head);
 }
